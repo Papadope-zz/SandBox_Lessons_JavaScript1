@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Parcel Sandbox</title>
+	<meta charset="UTF-8" />
+  <style>
+		body {
+			background-color: white;
+			transition: all 2s ease;
+		}
+		#current {
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- AUDIO ATTRIBUTES: src / controls / loop / autoplay / muted -->
+	<audio controls loop muted src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Austria.ogg"></audio>
+
+	<audio controls>
+			<source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" type="audio/mp3">
+			<source src="https://file-examples.com/wp-content/uploads/2017/11/file_example_OOG_1MG.ogg" type="audio/ogg">
+			Sorry, your browser doesn't support embedded audio.
+	</audio>
+
+	<!-- Default browser behavior for unknown elements: display the content -->
+	<!-- <kostas>KOSTAS MINAIDIS</kostas> -->
+
+	<!-- Video: http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4 | https://upload.wikimedia.org/wikipedia/commons/6/62/Cheetahs_on_the_Edge_%28Director%27s_Cut%29.ogv -->
+	<!-- Image: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/BBB-Bunny.png/640px-BBB-Bunny.png -->
+	<!-- Video Attributes: src / controls / width / height / poster / loop / autoplay / muted -->
+	<video id="charlie" controls width="200" loop muted DISautoplay poster="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/BBB-Bunny.png/640px-BBB-Bunny.png">
+		<!-- NOTE: This is not the correct type/subtype just a temporary solution -->
+		<source src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Charlie_Chaplin%2C_the_Marriage_Bond.ogv"  type="video/mp4">
+	</video>
+	<br/>
+	<button id="play">Play</button>
+	<div id="current">CURRENT TIME: <span id="time">0</span>%</div>
+	
+	<script>
+		const video = document.querySelector("#charlie");
+		const body = document.querySelector("body"); // === document.body
+		function handleClick(){
+			console.log("Play button clicked");
+			video.play();			
+			console.log("Video duration:", video.duration);
+			console.log("Video currentTime:", video.currentTime);
+			let percent = ( video.currentTime / video.duration ) * 100;
+			console.log( percent.toFixed(2), typeof percent );
+
+		}
+		function handleLoadedMeta(){
+			console.log("handleLoadedMeta()::video.duration:", video.duration);
+			const current = document.querySelector("#time");
+;			// Deal with duration in here...
+			const button = document.querySelector("#play");
+			button.addEventListener( "click", handleClick );
+			video.addEventListener("timeupdate", function(){
+				console.log("timeupdate", video.currentTime);
+				const percent = ( video.currentTime / video.duration ) * 100;
+				current.innerText = Math.floor(percent);
+			});
+
+		}
+
+		video.addEventListener("play", function(){
+			console.log("play event");
+			body.style.backgroundColor = "black";
+		});
+
+		video.addEventListener("pause",function(){
+			console.log("pause event");
+			body.style.backgroundColor = "white";
+		})
+
+		// At this point, duration (included in media metadata) is not loaded:
+		console.log( "video.duration:", video.duration );
+
+		// REFERENCE: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/loadedmetadata_event
+		video.addEventListener( "loadedmetadata", handleLoadedMeta );
+
+
+		// PRACTICE (IN CLASS): CREATE A PAUSE BUTTON THAT STOPS THE VIDEO AND CHANGES THE BODY COLOR
+		// PRACTICE (HOMEWORK): CREATE A TOGGLE BUTTON: A SINGLE BUTTON THAT STARTS AND STOPS THE VIDEO
+		// NOTE: The button's text must also change from Play > Pause > Play...
+		
+	</script>
+</body>
+
+</html>

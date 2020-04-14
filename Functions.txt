@@ -1,0 +1,20 @@
+// OOP - Class-based languages:
+class TShirt { }; <-- CLASS --> new Tshirt();
+
+// JAVASCRIPT:
+// Create Objects using functions:
+function TShirt(){
+
+}
+
+new TShirt();
+
+class TShirt {
+
+  method(){
+
+  }
+
+}
+
+new TShirt();

@@ -1,0 +1,8 @@
+// ELEMENT.addEventListener( EVENTYPE, FUNCTION_CB );
+img.addEventListener("load", run);
+img.addEventListener("click", run);
+
+// ELEMENT.onEVENTTYPE = FUNCTION_CB; // Alternative EventListener syntax (avoid)
+img.onload = run;
+img.onclick = run;
+img.onclick = doSomethingElse; // Will override the above event handler 'run';
